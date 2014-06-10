@@ -402,6 +402,7 @@
 				0732BA581944D0D6003D58C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0732BA591944D0D6003D58C1 /* Build configuration list for PBXNativeTarget "Easy TimerTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +411,7 @@
 				0732BA5B1944D0D6003D58C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

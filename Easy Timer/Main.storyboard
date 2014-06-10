@@ -12,26 +12,36 @@
                         <viewControllerLayoutGuide type="top" id="QH3-cA-niw"/>
                         <viewControllerLayoutGuide type="bottom" id="lEs-pO-niP"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="UWd-9z-531" customClass="ETTimer" customModule="Easy_Timer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="UWd-9z-531" customClass="ETTimerUIView" customModule="Easy_Timer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="42" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
-                                <rect key="frame" x="20" y="472" width="280" height="76"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
+                                <rect key="frame" x="100" y="433" width="120" height="115"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wef-ji-Sq3">
+                                <rect key="frame" x="217" y="502" width="27" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Wef-ji-Sq3" secondAttribute="trailing" constant="76" id="5RZ-qb-10T"/>
                             <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="Qmh-v3-7QE"/>
-                            <constraint firstAttribute="trailing" secondItem="YwV-hf-PFV" secondAttribute="trailing" constant="20" id="kTk-9b-Exw"/>
-                            <constraint firstItem="YwV-hf-PFV" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" constant="20" id="xxs-w2-N1a"/>
+                            <constraint firstItem="Wef-ji-Sq3" firstAttribute="baseline" secondItem="YwV-hf-PFV" secondAttribute="baseline" constant="-1" id="Sko-Vx-9OF"/>
+                            <constraint firstAttribute="trailing" secondItem="YwV-hf-PFV" secondAttribute="trailing" constant="100" id="kTk-9b-Exw"/>
+                            <constraint firstItem="YwV-hf-PFV" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" constant="100" id="xxs-w2-N1a"/>
                         </constraints>
                         <connections>
+                            <outlet property="secDisplay" destination="Wef-ji-Sq3" id="jgP-oW-axr"/>
+                            <outlet property="timeDisplay" destination="YwV-hf-PFV" id="H8Q-jx-9rd"/>
                             <outletCollection property="gestureRecognizers" destination="kke-Sc-uga" appends="YES" id="535-ZS-DSO"/>
                             <outletCollection property="gestureRecognizers" destination="tR1-16-Rck" appends="YES" id="dWr-LL-g76"/>
                         </connections>
@@ -49,7 +59,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="355" y="391"/>
+            <point key="canvasLocation" x="363" y="391"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

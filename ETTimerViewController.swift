@@ -17,12 +17,11 @@ class ETTimerViewController: UIViewController {
     
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
-        println("In ETTimerUIViewController")
+//        println("In ETTimerUIViewController")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        var bar:CGRect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
 //        println(bar)
 //        view.drawRect(bar)
@@ -34,6 +33,7 @@ class ETTimerViewController: UIViewController {
 //    }
     
 
+    
     
     
     // ---------------------------------------------------------- Event Handling
