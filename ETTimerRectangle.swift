@@ -21,29 +21,33 @@ class ETTimerUIView: UIView {
     
     // TODO:
     // o Color by sinebow
-    // o Snap to nearest 5 min increment
+    // o While dragging, snap to nearest 5 min increment
     // o Change color by time remaining from set (not total)
     // o fit seconds to minutes
     
+    @IBOutlet var timeDisplay : UILabel!
+    @IBOutlet var secDisplay : UILabel!
     
+    let limit: CGFloat       = 60.0 * 60.0 // a 60 minute timer
+    let interval: CGFloat    = 1.0
+    var percentage: CGFloat  = 0.0
+    var remaining: CGFloat   = 0.0
     
-    @IBOutlet var timeDisplay : UILabel
-    @IBOutlet var secDisplay : UILabel
-    
-    let limit           = 60.0 * 60.0 // a 60 minute timer
-    let interval        = 1.0
-    var percentage      = 0.0
-    var remaining       = 0.0
 
 //    var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("tick"), userInfo: nil, repeats: true)
 //    var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("tick"), userInfo: nil, repeats: true)
 
         
-    init(coder aDecoder: NSCoder!) {
-        super.init(coder: aDecoder) // this sounds like a superhero ring. TODO: huh?
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder) // this sounds like a superhero ring. TODO: What is an NSCoder and who invited it to the party?
         println("In ETTimerRectangle")
-        var timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: Selector("tick"), userInfo: nil, repeats: true)
-        timer.tolerance = interval * 0.1 // perf gain by allowing fuzzy times.
+        var timer = NSTimer.scheduledTimerWithTimeInterval(
+            NSTimeInterval(interval),
+            target: self,
+            selector: "tick",
+            userInfo: nil,
+            repeats: true)
+        timer.tolerance = Double(interval) * 0.1 // perf gain by allowing fuzzy times.
     }
 
 
@@ -78,10 +82,10 @@ class ETTimerUIView: UIView {
     
     
     // Given a position, set the time remaining on the timer
-    func setRemainingTimeByPos(yOffset: Float) {
+    func setRemainingTimeByPos(yOffset: CGFloat) {
         // Get size and percentage from bottom
-        let height = Double(self.frame.height)
-        let distFromBottom = height - Double(yOffset)
+        let height = self.frame.height
+        let distFromBottom = height - yOffset
         let ratio = distFromBottom / height
         percentage = ratio
         // Get amount of time remaining
@@ -119,9 +123,9 @@ class ETTimerUIView: UIView {
     override func drawRect(var rect: CGRect)
     {
         var size = self.frame.height
-        var height:CGFloat = size * Float(percentage)
+        var height:CGFloat = size * percentage
         var top = self.frame.height - height
-        var opacity = Float(percentage + 0.5)
+        var opacity = percentage + 0.5
         var context = UIGraphicsGetCurrentContext()
         CGContextSetRGBFillColor(context, 0.0, 0.5, 1.0, opacity)
         rect = CGRectMake(0, top, rect.width, height)
