@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="IZX-8T-sZD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="IZX-8T-sZD">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Timer View Controller-->
@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
-                                <rect key="frame" x="100" y="433" width="120" height="115"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
+                                <rect key="frame" x="95" y="433" width="120" height="115"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -36,8 +36,8 @@
                             <constraint firstAttribute="trailing" secondItem="Wef-ji-Sq3" secondAttribute="trailing" constant="76" id="5RZ-qb-10T"/>
                             <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="Qmh-v3-7QE"/>
                             <constraint firstItem="Wef-ji-Sq3" firstAttribute="baseline" secondItem="YwV-hf-PFV" secondAttribute="baseline" constant="-1" id="Sko-Vx-9OF"/>
-                            <constraint firstAttribute="trailing" secondItem="YwV-hf-PFV" secondAttribute="trailing" constant="100" id="kTk-9b-Exw"/>
-                            <constraint firstItem="YwV-hf-PFV" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" constant="100" id="xxs-w2-N1a"/>
+                            <constraint firstAttribute="trailing" secondItem="YwV-hf-PFV" secondAttribute="trailing" constant="105" id="kTk-9b-Exw"/>
+                            <constraint firstItem="YwV-hf-PFV" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" constant="95" id="xxs-w2-N1a"/>
                         </constraints>
                         <connections>
                             <outlet property="secDisplay" destination="Wef-ji-Sq3" id="jgP-oW-axr"/>
