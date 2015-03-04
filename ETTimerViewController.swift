@@ -1,6 +1,7 @@
 //
 //  ETTimerViewController.swift
-//  Easy Timer
+//  * Extends UIViewController.
+//  * Doesn't do much work yet.
 //
 //  Created by Eric on 6/8/14.
 //  Copyright (c) 2014 Simple Guy. All rights reserved.
@@ -9,15 +10,9 @@
 import UIKit
 
 class ETTimerViewController: UIViewController {
-
-//    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//        // Custom initialization
-//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        println("In ETTimerUIViewController")
     }
 
     override func viewDidLoad() {
@@ -28,10 +23,6 @@ class ETTimerViewController: UIViewController {
 //        view.drawRect((0,0), (100,100))
     }
 
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//    }
-    
 
     
     
@@ -50,21 +41,4 @@ class ETTimerViewController: UIViewController {
 //    }
     
     
-
-    
-    
-    
-    
-    
-    
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
