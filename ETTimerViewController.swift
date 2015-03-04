@@ -17,14 +17,8 @@ class ETTimerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        var bar:CGRect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
-//        println(bar)
-//        view.drawRect(bar)
-//        view.drawRect((0,0), (100,100))
     }
 
-
-    
     
     
     // ---------------------------------------------------------- Event Handling

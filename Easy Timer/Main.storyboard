@@ -17,7 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
-                                <rect key="frame" x="95" y="433" width="120" height="115"/>
+                                <rect key="frame" x="104" y="433" width="112" height="115"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="112" id="ER0-h2-Xgq"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -33,11 +36,10 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Wef-ji-Sq3" secondAttribute="trailing" constant="76" id="5RZ-qb-10T"/>
-                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="Qmh-v3-7QE"/>
-                            <constraint firstItem="Wef-ji-Sq3" firstAttribute="baseline" secondItem="YwV-hf-PFV" secondAttribute="baseline" constant="-1" id="Sko-Vx-9OF"/>
-                            <constraint firstAttribute="trailing" secondItem="YwV-hf-PFV" secondAttribute="trailing" constant="105" id="kTk-9b-Exw"/>
-                            <constraint firstItem="YwV-hf-PFV" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" constant="95" id="xxs-w2-N1a"/>
+                            <constraint firstAttribute="centerX" secondItem="YwV-hf-PFV" secondAttribute="centerX" id="JPx-P7-RDm"/>
+                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="hzQ-Un-TPv"/>
+                            <constraint firstAttribute="centerX" secondItem="Wef-ji-Sq3" secondAttribute="centerX" constant="-70.5" id="jmN-aa-5wV"/>
+                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="Wef-ji-Sq3" secondAttribute="bottom" constant="37" id="uOt-PM-erN"/>
                         </constraints>
                         <connections>
                             <outlet property="secDisplay" destination="Wef-ji-Sq3" id="jgP-oW-axr"/>

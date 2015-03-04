@@ -11,5 +11,9 @@
 - [ ] **Sinebow** for beautiful colors
 - [ ] **Forshadow**. Show urgency by changing color on a scale from set time (not total time) to 0
 
+## Questions
+* If `typealias SystemSoundID = UInt32` Why is `Int` not convertable to a `SystemSoundID`?
+* Can I play sounds that are on the device already?
+
 ## Done
 - [x] Fix issues from Swift language changes

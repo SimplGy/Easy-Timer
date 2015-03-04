@@ -11,7 +11,7 @@
 //
 
 import UIKit
-import AudioToolbox
+
 
 class ETTimerUIView: UIView {
     
@@ -20,11 +20,12 @@ class ETTimerUIView: UIView {
 
     let limit: CGFloat         = 60.0 * 60.0    // What's the maximum amount of time you can set a timer for?
     let tickAmount: CGFloat    = 1.0            // 1.0 means: one tick per second
-    let timerInterval: CGFloat = 0.01           // Should be`tickAmount`. Smaller values are for debugging a fast clock.
+    let timerInterval: CGFloat = 1 / 60         // Should be`tickAmount`. Smaller values are for debugging a fast clock.
     var percentage: CGFloat    = 0.0            // How much time is left, as a percentage of `limit`
     var remaining: CGFloat     = 0.0            // How much time is remaining right now?
     var prevRemaining: CGFloat = 0.0            // On the last tick, how much time was remaining?
     var setTime: CGFloat       = 0.0            // How much time has the user asked for a timer to run?
+    var audioController = AudioController()
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder) // this sounds like a superhero ring. TODO: What is an NSCoder and who invited it to the
@@ -49,25 +50,19 @@ class ETTimerUIView: UIView {
     
     // Every step of the timer calls this method
     func tick() {
-        // Timer is running
-        if remaining > 0 {
+        if remaining > 0 {                          // Timer is running
             prevRemaining = remaining
             remaining = round(remaining)
             remaining -= tickAmount
             percentage = remaining / limit
             setTimeDisplay()
-        
-        // Timer has just reached zero
-        } else if remaining != prevRemaining {
+        } else if remaining != prevRemaining {      // Timer has *just* reached zero or slightly below
+            println("just reached zero")
             remaining = 0.0
             prevRemaining = 0.0
-            onTimerFinished()
             setTimeDisplay()
-
-        // idle timer.
-        } else {
-            // nuttin'
-        }
+            audioController.play()
+        }                                           // No `else`; timer is idle. Good-fer-nuthin'.
     }
     
     // Given a position, set the time remaining on the timer
@@ -119,28 +114,10 @@ class ETTimerUIView: UIView {
         CGContextSetRGBFillColor(context, 0.0, 0.5, 1.0, opacity)
         rect = CGRectMake(0, top, rect.width, height)
         CGContextFillRect(context, rect)
-        
     }
+
     
-    // When the timer has finished, "ring" it
-    func onTimerFinished(){
-        
-        println("onTimerFinished")
-        
-        // Create the sound object
-        let filePath = NSBundle.mainBundle().pathForResource("Tock", ofType: "aiff")
-        // Make sure it found a path--sometimes it doesn't
-        if (filePath == nil) {
-            println("Can't get the path to a sound file")
-        } else {
-            let fileURL = NSURL(fileURLWithPath: filePath!)
-            var soundID:SystemSoundID = 0
-            AudioServicesCreateSystemSoundID(fileURL, &soundID)
-            AudioServicesPlaySystemSound(soundID)
-        }
-        
-        // Dispose
-//        AudioServicesDisposeSystemSoundID(soundID)
-    }
+
+    
     
 }
