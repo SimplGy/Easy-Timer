@@ -1,6 +1,7 @@
 //
 //  AppDelegate.swift
-//  Easy Timer
+//  Responds to application events/callbacks
+//  Not using this for very much (anything?) yet
 //
 //  Created by Eric on 6/8/14.
 //  Copyright (c) 2014 Simple Guy. All rights reserved.
@@ -18,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //        self.window!.backgroundColor = UIColor.brownColor()
 //        self.window!.makeKeyAndVisible()
-        
-        println("application")
         
         return true
     }
