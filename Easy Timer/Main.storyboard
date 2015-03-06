@@ -18,8 +18,11 @@
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwV-hf-PFV">
                                 <rect key="frame" x="104" y="433" width="112" height="115"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="112" id="ER0-h2-Xgq"/>
+                                    <constraint firstAttribute="width" constant="112" id="sCA-h3-Sna"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -27,21 +30,30 @@
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wef-ji-Sq3">
-                                <rect key="frame" x="217" y="502" width="27" height="29"/>
+                                <rect key="frame" x="217" y="503" width="27" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-Fi-BQN" customClass="Flashbulb" customModule="Easy_Timer">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="YwV-hf-PFV" firstAttribute="baseline" secondItem="Wef-ji-Sq3" secondAttribute="baseline" id="9P8-Pe-dFc"/>
+                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="Hpy-Fi-BQN" secondAttribute="bottom" id="Chh-mI-p4X"/>
                             <constraint firstAttribute="centerX" secondItem="YwV-hf-PFV" secondAttribute="centerX" id="JPx-P7-RDm"/>
-                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="hzQ-Un-TPv"/>
-                            <constraint firstAttribute="centerX" secondItem="Wef-ji-Sq3" secondAttribute="centerX" constant="-70.5" id="jmN-aa-5wV"/>
-                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="Wef-ji-Sq3" secondAttribute="bottom" constant="37" id="uOt-PM-erN"/>
+                            <constraint firstItem="Hpy-Fi-BQN" firstAttribute="leading" secondItem="UWd-9z-531" secondAttribute="leading" id="V4s-Q5-jP9"/>
+                            <constraint firstAttribute="centerX" secondItem="Wef-ji-Sq3" secondAttribute="centerX" constant="-70" id="jmN-aa-5wV"/>
+                            <constraint firstAttribute="trailing" secondItem="Hpy-Fi-BQN" secondAttribute="trailing" id="lV7-PM-FIG"/>
+                            <constraint firstItem="Hpy-Fi-BQN" firstAttribute="top" secondItem="UWd-9z-531" secondAttribute="top" id="uc9-cC-tk5"/>
+                            <constraint firstItem="lEs-pO-niP" firstAttribute="top" secondItem="YwV-hf-PFV" secondAttribute="bottom" constant="20" id="zMi-NG-TYe"/>
                         </constraints>
                         <connections>
+                            <outlet property="flashbulb" destination="Hpy-Fi-BQN" id="tJI-qg-cm6"/>
                             <outlet property="secDisplay" destination="Wef-ji-Sq3" id="jgP-oW-axr"/>
                             <outlet property="timeDisplay" destination="YwV-hf-PFV" id="H8Q-jx-9rd"/>
                             <outletCollection property="gestureRecognizers" destination="kke-Sc-uga" appends="YES" id="535-ZS-DSO"/>
@@ -61,7 +73,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="363" y="391"/>
+            <point key="canvasLocation" x="895" y="391"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

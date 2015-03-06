@@ -17,10 +17,11 @@ class ETTimerUIView: UIView {
     
     @IBOutlet var timeDisplay : UILabel!
     @IBOutlet var secDisplay : UILabel!
+    @IBOutlet var flashbulb: Flashbulb!
 
     let limit: CGFloat         = 60.0 * 60.0    // What's the maximum amount of time you can set a timer for?
     let tickAmount: CGFloat    = 1.0            // 1.0 means: one tick per second
-    let timerInterval: CGFloat = 1 / 60         // Should be`tickAmount`. Smaller values are for debugging a fast clock.
+    let timerInterval: CGFloat = 1 / 60 / 60    // Should be`tickAmount`. Smaller values are for debugging a fast clock.
     var percentage: CGFloat    = 0.0            // How much time is left, as a percentage of `limit`
     var remaining: CGFloat     = 0.0            // How much time is remaining right now?
     var prevRemaining: CGFloat = 0.0            // On the last tick, how much time was remaining?
@@ -36,8 +37,9 @@ class ETTimerUIView: UIView {
             userInfo: nil,
             repeats: true)
         timer.tolerance = Double(timerInterval) * 0.1 // perf gain by allowing fuzzy times.
+//        flashBg()
     }
-
+    
     func setTimeDisplay() {
         timeDisplay.text = String(Int(remaining) / 60)
         var seconds = String(Int(remaining % 60))
@@ -62,6 +64,7 @@ class ETTimerUIView: UIView {
             prevRemaining = 0.0
             setTimeDisplay()
             audioController.play()
+            flashBg()
         }                                           // No `else`; timer is idle. Good-fer-nuthin'.
     }
     
@@ -80,7 +83,26 @@ class ETTimerUIView: UIView {
     
     
     
-    
+    func flashBg() {
+
+//        self.backgroundColor = UIColor.greenColor()
+//        var color = self.tintColor
+//        self.backgroundColor = color
+//        var mode = self.tintAdjustmentMode
+        
+        
+//        let animation = CABasicAnimation(keyPath: "position.x")
+//        animation.fromValue = 0
+//        animation.toValue = 317
+        
+        
+
+        flashbulb.fire()
+        
+        
+        
+        
+    }
     
     
     

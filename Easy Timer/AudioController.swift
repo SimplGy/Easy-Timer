@@ -6,31 +6,31 @@
 //  Copyright (c) 2015 Simple Guy. All rights reserved.
 //
 
-import AudioToolbox
+//import AudioToolbox
 import AVFoundation
 
 
-class AudioController {
+class AudioController : NSObject {
 
     // MARK: - Instance variables and constants
     var timerAudio = AVAudioPlayer()
     let soundPath = "Sounds/"
     let defaultSound = "chipper"
     
-    
     // MARK: - Constructor
-    init(){
-        println("AudioController.init()")
+    override init(){
+        super.init()
+//        timerAudio.meteringEnabled = true
+//        var displayLink = CADisplayLink(target: self, selector: "updateVolume")
+//        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
     // MARK: - Instance Methods
     // Select one of the pieces of audio and ready it for playback
     // Play the audio and vibrate
     func play(){
-        println("play")
         // Select sound file at random from available ones
         var filename = getRandomSound()
-        
         // Sound path/reference
         var sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(filename, ofType: "aifc")!)
         // Prep
@@ -40,20 +40,30 @@ class AudioController {
         var error: NSError?
         timerAudio = AVAudioPlayer(contentsOfURL: sound, error: &error)
         timerAudio.prepareToPlay()
-        println("prepared timer sound: \(filename)")
-        
+
+        println("playing sound: \(filename)")
         timerAudio.play()
         vibrate()
+        
     }
     func vibrate(){
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate));
+    }
+    
+    func updateVolume() {
+        println("updateVolume()")
+        if timerAudio.playing {
+            timerAudio.updateMeters()
+            var volume = timerAudio.averagePowerForChannel(0)
+            println("volume: \(volume)")
+        }
     }
 
         
     // MARK: - Private Methods
     private func getRandomSound() -> String {
         let path = NSBundle.mainBundle().bundlePath + "/" + soundPath
-        println("path: \(path)")
+//        println("path: \(path)")
         var error: NSError? = nil
         
         let fileManager = NSFileManager.defaultManager()
@@ -67,5 +77,7 @@ class AudioController {
         let randomSound = filenames[randomIndex].stringByDeletingPathExtension
         return soundPath + randomSound
     }
+    
+    
 }
 
