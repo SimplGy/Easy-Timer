@@ -10,16 +10,19 @@
 import AVFoundation
 import UIKit
 
+protocol PlayerDelegate : class {
+    func soundFinished(sender : AnyObject)
+}
 
-class AudioController : NSObject {
+class AudioController : NSObject, AVAudioPlayerDelegate {
 
     // MARK: - Instance variables and constants
     var timerAudio: AVAudioPlayer!
     var flashbulb: Flashbulb!
     let soundPath = "Sounds/"
     let defaultSound = "chipper"
-    let maxVolume:Float = 320
-    
+    let maxVolume:Float = 240 // each channel of audio scales from -120 to 0, the loudest
+    weak var delegate : PlayerDelegate?
     
     // MARK: - Constructor
     override init(){
@@ -27,20 +30,18 @@ class AudioController : NSObject {
         var displayLink = CADisplayLink(target: self, selector: "updateVolume")
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
-    
-    // set the UI View used to display the flashing visual
-//    func setFlasher(flasher: Flashbulb!){
-//        flashbulb = flasher
-//    }
 
     // MARK: - Instance Methods
     // Select one of the pieces of audio and ready it for playback
     // Play the audio and vibrate
     func play(#flasher: Flashbulb!){
+        // Reset any existing values
+        timerAudio?.delegate = nil
+        timerAudio?.stop()
         // Save the flasher, a view which will flash with the volume
         flashbulb = flasher
         // Select sound file at random from available ones
-        var filename = getRandomSound()
+        var filename = getRandomSoundPath()
         // Sound path/reference
         var sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(filename, ofType: "aifc")!)
         // Prep
@@ -49,44 +50,47 @@ class AudioController : NSObject {
         // Play sound
         var error: NSError?
         timerAudio = AVAudioPlayer(contentsOfURL: sound, error: &error)
+        timerAudio.delegate = self
         timerAudio.meteringEnabled = true
         timerAudio.prepareToPlay()
 
         println("playing sound: \(filename)")
         timerAudio.play()
         vibrate()
-        
     }
     func vibrate(){
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate));
     }
     
+    // Update the visual display of volume, but only if we have audio, a flashbulb, and the audio is playing
+    // Calculates the brightness of the flashbulb based on the present power of the audio
     func updateVolume() {
-//      if let playing = timerAudio?.playing {
-        if timerAudio != nil && timerAudio.playing {
-            timerAudio.updateMeters()
-            var volume:Float = maxVolume - 100 // the range is from -320 to 0 for two channels of db
-            for i in 0 ..< timerAudio.numberOfChannels {
-                volume += timerAudio.averagePowerForChannel(i)
-            }
-            println("volume: \(volume)")
-            if flashbulb != nil {
-                var alpha = CGFloat(volume / maxVolume) // TODO: scale this so that the peaks are more obvious
-                println("alpha: \(alpha)")
-                flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
-            }
-        } else if flashbulb != nil { // TODO: better way to turn off the flashbulb when audio finishes
-            flashbulb.backgroundColor = UIColor.clearColor()
+        if timerAudio == nil   { return }
+        if flashbulb  == nil   { return }
+        if !timerAudio.playing { return }
+        timerAudio.updateMeters()
+        var volume:Float = maxVolume
+        for i in 0 ..< timerAudio.numberOfChannels {
+            volume += timerAudio.averagePowerForChannel(i)
         }
+        var alpha = CGFloat(volume / maxVolume)
+        var l = alpha - 0.5 // Shift the range over to the area with interesting differences in our source tracks
+        alpha = (l * l * l) * 10 // Emphases the changes in this range (negative values ignored)
+//        println("alpha: \(alpha)")
+        flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
     }
 
+    func audioPlayerDidFinishPlaying(AVAudioPlayer!, successfully: Bool) {
+//        self.delegate?.soundFinished(self) // TODO: why would I need to call this? Understand delegates.
+        if flashbulb == nil { return }
+        flashbulb.backgroundColor = UIColor.clearColor()
+        
+    }
         
     // MARK: - Private Methods
-    private func getRandomSound() -> String {
+    private func getRandomSoundPath() -> String {
         let path = NSBundle.mainBundle().bundlePath + "/" + soundPath
-//        println("path: \(path)")
         var error: NSError? = nil
-        
         let fileManager = NSFileManager.defaultManager()
         let contents = fileManager.contentsOfDirectoryAtPath(path, error: &error)
         if contents == nil {
@@ -99,6 +103,8 @@ class AudioController : NSObject {
         return soundPath + randomSound
     }
     
-    
+    deinit {
+        self.timerAudio?.delegate = nil
+    }
 }
 
