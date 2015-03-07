@@ -8,27 +8,37 @@
 
 //import AudioToolbox
 import AVFoundation
+import UIKit
 
 
 class AudioController : NSObject {
 
     // MARK: - Instance variables and constants
-    var timerAudio = AVAudioPlayer()
+    var timerAudio: AVAudioPlayer!
+    var flashbulb: Flashbulb!
     let soundPath = "Sounds/"
     let defaultSound = "chipper"
+    let maxVolume:Float = 320
+    
     
     // MARK: - Constructor
     override init(){
         super.init()
-//        timerAudio.meteringEnabled = true
-//        var displayLink = CADisplayLink(target: self, selector: "updateVolume")
-//        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        var displayLink = CADisplayLink(target: self, selector: "updateVolume")
+        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
+    // set the UI View used to display the flashing visual
+//    func setFlasher(flasher: Flashbulb!){
+//        flashbulb = flasher
+//    }
+
     // MARK: - Instance Methods
     // Select one of the pieces of audio and ready it for playback
     // Play the audio and vibrate
-    func play(){
+    func play(#flasher: Flashbulb!){
+        // Save the flasher, a view which will flash with the volume
+        flashbulb = flasher
         // Select sound file at random from available ones
         var filename = getRandomSound()
         // Sound path/reference
@@ -39,6 +49,7 @@ class AudioController : NSObject {
         // Play sound
         var error: NSError?
         timerAudio = AVAudioPlayer(contentsOfURL: sound, error: &error)
+        timerAudio.meteringEnabled = true
         timerAudio.prepareToPlay()
 
         println("playing sound: \(filename)")
@@ -51,11 +62,21 @@ class AudioController : NSObject {
     }
     
     func updateVolume() {
-        println("updateVolume()")
-        if timerAudio.playing {
+//      if let playing = timerAudio?.playing {
+        if timerAudio != nil && timerAudio.playing {
             timerAudio.updateMeters()
-            var volume = timerAudio.averagePowerForChannel(0)
+            var volume:Float = maxVolume - 100 // the range is from -320 to 0 for two channels of db
+            for i in 0 ..< timerAudio.numberOfChannels {
+                volume += timerAudio.averagePowerForChannel(i)
+            }
             println("volume: \(volume)")
+            if flashbulb != nil {
+                var alpha = CGFloat(volume / maxVolume) // TODO: scale this so that the peaks are more obvious
+                println("alpha: \(alpha)")
+                flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
+            }
+        } else if flashbulb != nil { // TODO: better way to turn off the flashbulb when audio finishes
+            flashbulb.backgroundColor = UIColor.clearColor()
         }
     }
 

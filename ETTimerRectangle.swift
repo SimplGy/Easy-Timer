@@ -37,7 +37,6 @@ class ETTimerUIView: UIView {
             userInfo: nil,
             repeats: true)
         timer.tolerance = Double(timerInterval) * 0.1 // perf gain by allowing fuzzy times.
-//        flashBg()
     }
     
     func setTimeDisplay() {
@@ -63,8 +62,8 @@ class ETTimerUIView: UIView {
             remaining = 0.0
             prevRemaining = 0.0
             setTimeDisplay()
-            audioController.play()
-            flashBg()
+            audioController.play(flasher: flashbulb)
+//            flashBg()
         }                                           // No `else`; timer is idle. Good-fer-nuthin'.
     }
     
@@ -83,26 +82,9 @@ class ETTimerUIView: UIView {
     
     
     
-    func flashBg() {
-
-//        self.backgroundColor = UIColor.greenColor()
-//        var color = self.tintColor
-//        self.backgroundColor = color
-//        var mode = self.tintAdjustmentMode
-        
-        
-//        let animation = CABasicAnimation(keyPath: "position.x")
-//        animation.fromValue = 0
-//        animation.toValue = 317
-        
-        
-
-        flashbulb.fire()
-        
-        
-        
-        
-    }
+//    func flashBg() {
+//        flashbulb.fire()
+//    }
     
     
     

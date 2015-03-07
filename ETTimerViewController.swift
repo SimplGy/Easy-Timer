@@ -17,12 +17,6 @@ class ETTimerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-//        self.view.flashBulb = UIView(frame: CGRectMake(0,0, self.view.frame.width, self.view.frame.height))
-//        self.view.flashBulb.backgroundColor = UIColor.blueColor()
-//        self.view.addSubview(flashBulb)
     }
     
     
