@@ -10,11 +10,11 @@
 import AVFoundation
 import UIKit
 
-protocol PlayerDelegate : class {
-    func soundFinished(sender : AnyObject)
-}
+//protocol PlayerDelegate : class {
+//    func soundFinished(sender : AnyObject)
+//}
 
-class AudioController : NSObject, AVAudioPlayerDelegate {
+class AudioController : NSObject {
 
     // MARK: - Instance variables and constants
     var timerAudio: AVAudioPlayer!
@@ -22,7 +22,7 @@ class AudioController : NSObject, AVAudioPlayerDelegate {
     let soundPath = "Sounds/"
     let defaultSound = "chipper"
     let maxVolume:Float = 240 // each channel of audio scales from -120 to 0, the loudest
-    weak var delegate : PlayerDelegate?
+    weak var delegate : AVAudioPlayerDelegate?
     
     // MARK: - Constructor
     override init(){
@@ -69,24 +69,18 @@ class AudioController : NSObject, AVAudioPlayerDelegate {
         if flashbulb  == nil   { return }
         if !timerAudio.playing { return }
         timerAudio.updateMeters()
-        var volume:Float = maxVolume
+        var volume:Float = 0 //maxVolume
         for i in 0 ..< timerAudio.numberOfChannels {
             volume += timerAudio.averagePowerForChannel(i)
         }
         var alpha = CGFloat(volume / maxVolume)
-        var l = alpha - 0.5 // Shift the range over to the area with interesting differences in our source tracks
-        alpha = (l * l * l) * 10 // Emphases the changes in this range (negative values ignored)
+        alpha = alpha - 0.5   // Shift the range over to the area with interesting differences in our source tracks
+        alpha = pow(alpha, 3) // Emphases the changes in this range (negative values ignored)
+        alpha *= 10
 //        println("alpha: \(alpha)")
         flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
     }
 
-    func audioPlayerDidFinishPlaying(AVAudioPlayer!, successfully: Bool) {
-//        self.delegate?.soundFinished(self) // TODO: why would I need to call this? Understand delegates.
-        if flashbulb == nil { return }
-        flashbulb.backgroundColor = UIColor.clearColor()
-        
-    }
-        
     // MARK: - Private Methods
     private func getRandomSoundPath() -> String {
         let path = NSBundle.mainBundle().bundlePath + "/" + soundPath
@@ -105,6 +99,16 @@ class AudioController : NSObject, AVAudioPlayerDelegate {
     
     deinit {
         self.timerAudio?.delegate = nil
+    }
+}
+
+extension AudioController : AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(AVAudioPlayer!, successfully: Bool) {
+        //        self.delegate?.soundFinished(self) // TODO: why would I need to call this? Understand delegates.
+        if flashbulb == nil { return }
+        flashbulb.backgroundColor = UIColor.clearColor()
+        
     }
 }
 
