@@ -10,7 +10,7 @@
 import UIKit
 
 
-class TimeDisplayView: UIView {
+class TimeDisplay: UIView {
 
     
     @IBOutlet var minutes: UILabel!
@@ -25,6 +25,7 @@ class TimeDisplayView: UIView {
 //    var setTime: CGFloat       = 0.0            // How much time has the user asked for a timer to run?
     var running: Bool          = false          // Is the timer running right meow?
     var scrollView: UIScrollView!               // Gets set as soon as someone sets a timer
+    var onRingCallback: (()->())!               // an optional function reference
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,47 +47,50 @@ class TimeDisplayView: UIView {
     // requires a scrollView so it can calculate the time based on contentOffset
     func set(scrollView s: UIScrollView){
         if scrollView == nil { scrollView = s } // only set it the first time
-        println("--- setTimer(). contentOffset.y: \(scrollView.contentOffset.y)")
+//        println("--- setTimer(). contentOffset.y: \(scrollView.contentOffset.y)")
         // Calculate the percentage and time remaining
         percentage = scrollView.contentOffset.y / scrollView.frame.height
         remaining = percentage * limit
 //        println((percentage, remaining))
         updateTimeDisplay()
     }
-    func start(){
-        println("--- startTimer()")
+    func start() {
         running = true
         // TODO: on start, flash/animate/bump the numbers to show something happened
     }
-    func stop(){
-        println("--- stopTimer()")
+    func stop() {
         running = false
         remaining = 0.0
     }
     
-    func tick (){
+    // Runs every tick, whether the timer is running or not
+    func tick() {
         if (!running){ return }
-        println("tick")
+//        println("tick")
         if remaining > 0 {                          // Timer is running
             remaining = round(remaining) - tickAmount
             percentage = remaining / limit
-            updateScrollViewPosition() // moving the scroll view fires the event again which displays the time
+            updateDisplay() // moving the scroll view fires the event again which displays the time
         } else {                                    // Timer has *just* reached zero or slightly below
             println("just reached zero")
-            stop()
-//            updateDisplay()
-//            audioController.play(flasher: flashbulb)
+            ringTimer()
         }
     }
+    
+    // Set up a callback for when the timer rings
+    func onRing(callback: ()->()) {
+        onRingCallback = callback
+    }
+    
     
     
     // --------------------------------------------------- Private Methods
     // Update the display of numeric time and the visual percentage bar
     // Requires `remaining` to have been calculated
-//    private func updateDisplay() {
-//        updateTimeDisplay()
-//        updateScrollViewPosition()
-//    }
+    private func updateDisplay() {
+        updateTimeDisplay()
+        updateScrollView()
+    }
     private func updateTimeDisplay() {
         minutes.text = String(Int(remaining) / 60)
         var s = String(Int(remaining % 60))
@@ -96,11 +100,19 @@ class TimeDisplayView: UIView {
         seconds.text = s
     }
     // Manipulate the scrollView to show the current remaining time percentage
-    private func updateScrollViewPosition(){
+    private func updateScrollView() {
         let offset = percentage * scrollView.frame.height
         scrollView.setContentOffset(CGPoint(x:0, y:offset), animated: false)
     }
-    
+    // Do anything that means the timer has rung
+    private func ringTimer() {
+        println("ringTimer()")
+        stop()
+//            updateDisplay()
+        if onRingCallback != nil {
+            onRingCallback()
+        }
+    }
     
 
     

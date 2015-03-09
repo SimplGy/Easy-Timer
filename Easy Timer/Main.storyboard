@@ -90,30 +90,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xse-ul-Ub9" customClass="Flashbulb" customModule="Easy_Timer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUR-Yc-HJo">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FX8-sE-2ET" userLabel="Spacer">
-                                        <rect key="frame" x="0.0" y="-2" width="320" height="568"/>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FX8-sE-2ET" userLabel="Spacer">
+                                        <rect key="frame" x="0.0" y="-1" width="320" height="568"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                        </accessibility>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeE-uJ-QBs" userLabel="FillRect">
-                                        <rect key="frame" x="0.0" y="566" width="320" height="568"/>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeE-uJ-QBs" userLabel="FillRect">
+                                        <rect key="frame" x="0.0" y="567" width="320" height="568"/>
                                         <color key="backgroundColor" red="0.37420356273651123" green="0.75921368598937988" blue="0.32102048397064209" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.25681341770754723" green="0.30363121811224492" blue="0.29295036080361209" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="WeE-uJ-QBs" firstAttribute="top" secondItem="FX8-sE-2ET" secondAttribute="bottom" id="77S-yJ-1hb"/>
-                                    <constraint firstItem="FX8-sE-2ET" firstAttribute="top" secondItem="rUR-Yc-HJo" secondAttribute="top" constant="-2" id="aOH-2C-OOJ"/>
+                                    <constraint firstItem="FX8-sE-2ET" firstAttribute="top" secondItem="rUR-Yc-HJo" secondAttribute="top" constant="-1" id="aOH-2C-OOJ"/>
                                     <constraint firstItem="WeE-uJ-QBs" firstAttribute="leading" secondItem="rUR-Yc-HJo" secondAttribute="leading" id="hSJ-i5-hOm"/>
                                     <constraint firstItem="WeE-uJ-QBs" firstAttribute="trailing" secondItem="rUR-Yc-HJo" secondAttribute="trailing" id="iJY-zN-D2c"/>
                                     <constraint firstAttribute="trailing" secondItem="FX8-sE-2ET" secondAttribute="trailing" id="kY3-LR-2H0"/>
                                     <constraint firstAttribute="bottom" secondItem="WeE-uJ-QBs" secondAttribute="bottom" id="lQe-WI-gp5"/>
                                     <constraint firstItem="FX8-sE-2ET" firstAttribute="leading" secondItem="rUR-Yc-HJo" secondAttribute="leading" id="na0-iM-zIQ"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="rzP-Dc-5yQ" appends="YES" id="cJY-P3-Iev"/>
+                                </connections>
                             </scrollView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOD-ZF-9zA" userLabel="Time Display" customClass="TimeDisplayView" customModule="Easy_Timer" customModuleProvider="target">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOD-ZF-9zA" userLabel="Time Display" customClass="TimeDisplay" customModule="Easy_Timer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="418" width="320" height="150"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9V-fy-DVZ" userLabel="Minutes">
@@ -125,9 +139,9 @@
                                             <constraint firstAttribute="width" constant="112" id="gRi-3q-mAY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
-                                        <color key="textColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
-                                        <size key="shadowOffset" width="1" height="1"/>
+                                        <size key="shadowOffset" width="-1" height="-1"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7S-8f-njP" userLabel="Seconds">
                                         <rect key="frame" x="217" y="85" width="27" height="29"/>
@@ -135,7 +149,7 @@
                                             <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
                                         </accessibility>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -156,6 +170,9 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="vOD-ZF-9zA" firstAttribute="leading" secondItem="o5N-a0-S7B" secondAttribute="leading" id="0B4-xw-IcV"/>
                             <constraint firstItem="FX8-sE-2ET" firstAttribute="height" secondItem="o5N-a0-S7B" secondAttribute="height" id="PAJ-kW-qkU"/>
@@ -173,11 +190,17 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="flashbulb" destination="Xse-ul-Ub9" id="FCN-HQ-rBq"/>
                         <outlet property="scrollView" destination="rUR-Yc-HJo" id="88v-RS-uCF"/>
                         <outlet property="timeDisplay" destination="vOD-ZF-9zA" id="XbK-0a-dGd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBv-ZK-f1n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="rzP-Dc-5yQ">
+                    <connections>
+                        <action selector="onTap:" destination="0cs-95-CKp" id="GEo-mt-kdD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="895" y="1350"/>
         </scene>

@@ -11,7 +11,10 @@ import UIKit
 class TimerViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet var scrollView:  UIScrollView!
-    @IBOutlet var timeDisplay: TimeDisplayView!
+    @IBOutlet var timeDisplay: TimeDisplay!
+    @IBOutlet var flashbulb: Flashbulb!
+    
+    var audioController = AudioController()
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -20,12 +23,17 @@ class TimerViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         scrollView.decelerationRate = UIScrollViewDecelerationRateFast
         scrollView.delegate = self
+        
+        timeDisplay.onRing(onRing)
+        audioController.flashbulb = flashbulb
     }
     
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//    }
+    
+    func onRing() {
+        println("TimerViewController.onRing()")
+        audioController.play()
+    }
+    
     
     // scrollView event handling
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -52,11 +60,26 @@ class TimerViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        println("scrollViewDidEndScrollingAnimation")    
+        println("scrollViewDidEndScrollingAnimation")
+        timeDisplay.start()
     }
     
 
+    // When the screen is tapped (not dragged), jump the scroll view to that location
+    @IBAction func onTap(recognizer: UITapGestureRecognizer) {
+        let y = recognizer.locationInView(self.view).y
+        let offset = CGPoint(x:0, y: self.view.frame.height - y)
+        println("onTap offset: \(offset)")
+        timeDisplay.stop()
+        scrollView.setContentOffset(offset, animated: true)
 
+//        UIView.animateWithDuration(0.1, animations: {
+//            self.scrollView.contentOffset = offset
+//        })
+
+    }
+    
+    
 
 //    override func loadView() {
 //        let w = UIScreen.mainScreen().applicationFrame.width

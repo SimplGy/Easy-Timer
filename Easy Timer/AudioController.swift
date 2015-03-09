@@ -31,15 +31,16 @@ class AudioController : NSObject {
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
 
+    
     // MARK: - Instance Methods
+    
     // Select one of the pieces of audio and ready it for playback
     // Play the audio and vibrate
-    func play(#flasher: Flashbulb!){
+    func play() {
         // Reset any existing values
         timerAudio?.delegate = nil
         timerAudio?.stop()
-        // Save the flasher, a view which will flash with the volume
-        flashbulb = flasher
+        
         // Select sound file at random from available ones
         var filename = getRandomSoundPath()
         // Sound path/reference
@@ -69,7 +70,7 @@ class AudioController : NSObject {
         if flashbulb  == nil   { return }
         if !timerAudio.playing { return }
         timerAudio.updateMeters()
-        var volume:Float = 0 //maxVolume
+        var volume:Float = maxVolume
         for i in 0 ..< timerAudio.numberOfChannels {
             volume += timerAudio.averagePowerForChannel(i)
         }
@@ -77,7 +78,7 @@ class AudioController : NSObject {
         alpha = alpha - 0.5   // Shift the range over to the area with interesting differences in our source tracks
         alpha = pow(alpha, 3) // Emphases the changes in this range (negative values ignored)
         alpha *= 10
-//        println("alpha: \(alpha)")
+//        println("volume, alpha: \((volume, alpha))")
         flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
     }
 

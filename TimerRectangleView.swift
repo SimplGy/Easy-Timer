@@ -62,7 +62,7 @@ class TimerRectangleView: UIView {
             remaining = 0.0
             prevRemaining = 0.0
             setTimeDisplay()
-            audioController.play(flasher: flashbulb)
+            audioController.play()
 //            flashBg()
         }                                           // No `else`; timer is idle. Good-fer-nuthin'.
     }
