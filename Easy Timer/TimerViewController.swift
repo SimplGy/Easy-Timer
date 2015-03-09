@@ -8,42 +8,77 @@
 
 import UIKit
 
-class TimerViewController: UIViewController {
+class TimerViewController: UIViewController, UIScrollViewDelegate {
+    
+    @IBOutlet var scrollView:  UIScrollView!
+    @IBOutlet var timeDisplay: TimeDisplayView!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func loadView() {
-        let w = UIScreen.mainScreen().applicationFrame.width
-        let h = UIScreen.mainScreen().applicationFrame.height + 20 // 20 for status bar
+    override func viewDidLoad() {
+        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+        scrollView.delegate = self
+    }
+    
+//
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//    }
+    
+    // scrollView event handling
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        println("scrollViewDidScroll")
+        timeDisplay.set(scrollView: scrollView)
+    }
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        println("scrollViewWillBeginDragging")
+        timeDisplay.stop()
+    }
+    
+//    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { println("scrollViewWillEndDragging") }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        println("scrollViewDidEndDragging")
+        if !decelerate { // http://keighl.com/post/did-uiscrollview-end-scrolling/
+            timeDisplay.start()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        println("scrollViewDidEndDecelerating")
+        timeDisplay.start()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        println("scrollViewDidEndScrollingAnimation")    
+    }
+    
+
+
+
+//    override func loadView() {
+//        let w = UIScreen.mainScreen().applicationFrame.width
+//        let h = UIScreen.mainScreen().applicationFrame.height + 20 // 20 for status bar
         
         // Create a scrollView that is as large as the screen
-        var scrollView = UIScrollView(frame: CGRectMake(0,0,w,h))
-        scrollView.contentSize = CGSizeMake(w, h * 2)
-        scrollView.showsVerticalScrollIndicator = false
-
+//        var scrollView = UIScrollView(frame: CGRectMake(0,0,w,h))
+//        scrollView.contentSize = CGSizeMake(w, h * 2)
+//        scrollView.showsVerticalScrollIndicator = false
+//        scrollView.backgroundColor = UIColor.blackColor()
         
 //        scrollView.pagingEnabled = true // allow left/right page swiping
         
-        // do any further configuration to the scroll view
-        // add a view, or views, as a subview of the scroll view.
-        
-        
 //        [scrollView release];         // TODO: release scrollView as self.view retains it
         
-        // Make two rectangles, both the width and height of the screen, stacked on top of each other
-        // The top rectangle doesn't seem necessary, but without it the scroll view won't detect touches
-        var rectView = UIView(frame: CGRectMake(0, 0, w, h))
-        rectView.backgroundColor = UIColor.darkGrayColor()
-        scrollView.addSubview(rectView)
-        rectView = UIView(frame: CGRectMake(0, h, w, h))
-        rectView.backgroundColor = scrollView.tintColor
-//        rectView.backgroundColor = self.view.tintColor
-        scrollView.addSubview(rectView)
+        // Add a fill rectangle the height of the screen just off screen.
+//        var rectView = UIView(frame: CGRectMake(0, h-1, w, h))
+//        rectView.backgroundColor = scrollView.tintColor
+//        scrollView.addSubview(rectView)
         
-        self.view = scrollView
-    }
+//        self.view = scrollView
+//    }
     
 //    override func viewDidLoad() {
 //        super.viewDidLoad()

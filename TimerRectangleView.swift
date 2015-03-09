@@ -13,7 +13,7 @@
 import UIKit
 
 
-class ETTimerUIView: UIView {
+class TimerRectangleView: UIView {
     
     @IBOutlet var timeDisplay : UILabel!
     @IBOutlet var secDisplay : UILabel!

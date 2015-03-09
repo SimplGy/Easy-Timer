@@ -4,15 +4,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Timer View Controller-->
+        <!--View Controller-->
         <scene sceneID="uO8-F7-Rcu">
             <objects>
-                <viewController id="IZX-8T-sZD" customClass="ETTimerViewController" customModule="Easy_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IZX-8T-sZD" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QH3-cA-niw"/>
                         <viewControllerLayoutGuide type="bottom" id="lEs-pO-niP"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="UWd-9z-531" customClass="ETTimerUIView" customModule="Easy_Timer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="UWd-9z-531" customClass="TimerRectangleView" customModule="Easy_Timer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -31,6 +31,9 @@
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wef-ji-Sq3">
                                 <rect key="frame" x="217" y="503" width="27" height="29"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -78,10 +81,105 @@
         <!--Timer View Controller-->
         <scene sceneID="rUS-zR-Gf4">
             <objects>
-                <viewController id="0cs-95-CKp" customClass="TimerViewController" customModule="Easy_Timer" customModuleProvider="target" sceneMemberID="viewController"/>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="0cs-95-CKp" customClass="TimerViewController" customModule="Easy_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DrG-6k-NmA"/>
+                        <viewControllerLayoutGuide type="bottom" id="izh-f7-J7o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o5N-a0-S7B" userLabel="Frame">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUR-Yc-HJo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FX8-sE-2ET" userLabel="Spacer">
+                                        <rect key="frame" x="0.0" y="-2" width="320" height="568"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeE-uJ-QBs" userLabel="FillRect">
+                                        <rect key="frame" x="0.0" y="566" width="320" height="568"/>
+                                        <color key="backgroundColor" red="0.37420356273651123" green="0.75921368598937988" blue="0.32102048397064209" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.25681341770754723" green="0.30363121811224492" blue="0.29295036080361209" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="WeE-uJ-QBs" firstAttribute="top" secondItem="FX8-sE-2ET" secondAttribute="bottom" id="77S-yJ-1hb"/>
+                                    <constraint firstItem="FX8-sE-2ET" firstAttribute="top" secondItem="rUR-Yc-HJo" secondAttribute="top" constant="-2" id="aOH-2C-OOJ"/>
+                                    <constraint firstItem="WeE-uJ-QBs" firstAttribute="leading" secondItem="rUR-Yc-HJo" secondAttribute="leading" id="hSJ-i5-hOm"/>
+                                    <constraint firstItem="WeE-uJ-QBs" firstAttribute="trailing" secondItem="rUR-Yc-HJo" secondAttribute="trailing" id="iJY-zN-D2c"/>
+                                    <constraint firstAttribute="trailing" secondItem="FX8-sE-2ET" secondAttribute="trailing" id="kY3-LR-2H0"/>
+                                    <constraint firstAttribute="bottom" secondItem="WeE-uJ-QBs" secondAttribute="bottom" id="lQe-WI-gp5"/>
+                                    <constraint firstItem="FX8-sE-2ET" firstAttribute="leading" secondItem="rUR-Yc-HJo" secondAttribute="leading" id="na0-iM-zIQ"/>
+                                </constraints>
+                            </scrollView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOD-ZF-9zA" userLabel="Time Display" customClass="TimeDisplayView" customModule="Easy_Timer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="418" width="320" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9V-fy-DVZ" userLabel="Minutes">
+                                        <rect key="frame" x="104" y="15" width="112" height="115"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="112" id="gRi-3q-mAY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="100"/>
+                                        <color key="textColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="1" height="1"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7S-8f-njP" userLabel="Seconds">
+                                        <rect key="frame" x="217" y="85" width="27" height="29"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
+                                        </accessibility>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="0zk-Wv-IWW"/>
+                                    <constraint firstAttribute="centerX" secondItem="o7S-8f-njP" secondAttribute="centerX" constant="-70" id="4Zh-1h-Sq4"/>
+                                    <constraint firstAttribute="bottom" secondItem="c9V-fy-DVZ" secondAttribute="bottom" constant="20" id="5gW-Lp-pfG"/>
+                                    <constraint firstAttribute="centerX" secondItem="c9V-fy-DVZ" secondAttribute="centerX" id="dbA-Fz-ri7"/>
+                                    <constraint firstItem="o7S-8f-njP" firstAttribute="baseline" secondItem="c9V-fy-DVZ" secondAttribute="baseline" id="wnq-eh-EbP"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="minutes" destination="c9V-fy-DVZ" id="TW4-Tj-E5A"/>
+                                    <outlet property="seconds" destination="o7S-8f-njP" id="QDy-xb-gL2"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vOD-ZF-9zA" firstAttribute="leading" secondItem="o5N-a0-S7B" secondAttribute="leading" id="0B4-xw-IcV"/>
+                            <constraint firstItem="FX8-sE-2ET" firstAttribute="height" secondItem="o5N-a0-S7B" secondAttribute="height" id="PAJ-kW-qkU"/>
+                            <constraint firstItem="FX8-sE-2ET" firstAttribute="width" secondItem="o5N-a0-S7B" secondAttribute="width" id="TqV-ev-1ab"/>
+                            <constraint firstItem="izh-f7-J7o" firstAttribute="top" secondItem="rUR-Yc-HJo" secondAttribute="bottom" id="bqk-AF-ct7"/>
+                            <constraint firstAttribute="trailing" secondItem="rUR-Yc-HJo" secondAttribute="trailing" id="bs8-Ri-WBZ"/>
+                            <constraint firstItem="WeE-uJ-QBs" firstAttribute="height" secondItem="o5N-a0-S7B" secondAttribute="height" id="hNd-o5-cM2"/>
+                            <constraint firstAttribute="trailing" secondItem="vOD-ZF-9zA" secondAttribute="trailing" id="jac-UI-FGS"/>
+                            <constraint firstItem="rUR-Yc-HJo" firstAttribute="leading" secondItem="o5N-a0-S7B" secondAttribute="leading" id="kBf-Rq-lhC"/>
+                            <constraint firstItem="izh-f7-J7o" firstAttribute="top" secondItem="vOD-ZF-9zA" secondAttribute="bottom" id="q27-fO-ydP"/>
+                            <constraint firstItem="rUR-Yc-HJo" firstAttribute="top" secondItem="o5N-a0-S7B" secondAttribute="top" id="wbX-wa-2FT"/>
+                            <constraint firstItem="WeE-uJ-QBs" firstAttribute="width" secondItem="o5N-a0-S7B" secondAttribute="width" id="xY4-Y1-EiF"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="scrollView" destination="rUR-Yc-HJo" id="88v-RS-uCF"/>
+                        <outlet property="timeDisplay" destination="vOD-ZF-9zA" id="XbK-0a-dGd"/>
+                    </connections>
+                </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBv-ZK-f1n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="895" y="1039"/>
+            <point key="canvasLocation" x="895" y="1350"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
