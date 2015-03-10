@@ -1,6 +1,4 @@
 ## Today
-- [ ] **Time**. Fix the timing to always show the digits change at exactly the right time
-  - New approach: run loop timer: http://blog.agupieware.com/2014/08/tutorial-simple-ios-stopwatch-app-in.html
 
 ## On Deck
 - [ ] Don't ring when you drag it to zero yourself
@@ -20,6 +18,7 @@
 * Can I play sounds that are on the device already?
 
 ## Done
+- [x] **Time**. Fix the timing to always show the seconds count correctly
 - [x] **Physical**. Get a feeling of momentum and physicality while dragging.
 - [x] **Beat** the flash to the sound of the alarm (issue with audioPlayer ref)
 - [x] **Ring** a beautiful chime when done

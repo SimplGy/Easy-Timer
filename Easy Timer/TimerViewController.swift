@@ -45,7 +45,22 @@ class TimerViewController: UIViewController, UIScrollViewDelegate {
         timeDisplay.stop()
     }
     
-//    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { println("scrollViewWillEndDragging") }
+    func scrollViewWillEndDragging (scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let y = targetContentOffset.memory.y
+        let tickSize:CGFloat = self.view.frame.height / 10
+        
+        // Determine which table cell the scrolling will stop on.
+        var cellIndex = floor(y / tickSize);
+        // Round to the next cell if the scrolling will stop over halfway to the next cell.
+        if ((y - (floor(y / tickSize) * tickSize)) > tickSize) {
+            cellIndex++;
+        }
+        // Adjust stopping point to exact beginning of cell.
+        targetContentOffset.memory.y = cellIndex * tickSize;
+        
+        println("scrollViewWillEndDragging")
+    }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         println("scrollViewDidEndDragging")
