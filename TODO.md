@@ -1,7 +1,8 @@
 ## Today
+- [ ] **Time**. Fix the timing to always show the digits change at exactly the right time
+  - New approach: run loop timer: http://blog.agupieware.com/2014/08/tutorial-simple-ios-stopwatch-app-in.html
 
 ## On Deck
-- [ ] **Time**. Fix the timing to always show the digits change at exactly the right time
 - [ ] Don't ring when you drag it to zero yourself
 - [ ] **Forshadow**. Show urgency by changing color on a scale from set time (not total time) to 0
 
@@ -12,6 +13,7 @@
 - [ ] **Sinebow** for beautiful colors
 - [ ] **Redesign** timer bar to emphasise a few remaining mins (angled? gradient? color change? graduated bars?)
 - [ ] **Follow** the user's finger around while they are dragging the time set
+- [ ] **Refactor** the timer rect into a UIControl: http://www.objc.io/issue-3/custom-controls.html
 
 ## Questions
 * If `typealias SystemSoundID = UInt32` Why is `Int` not convertable to a `SystemSoundID`?
