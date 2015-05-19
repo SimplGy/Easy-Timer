@@ -1,6 +1,9 @@
 ## Today
 
 ## On Deck
+- [ ] **Mock Up**. Use sketch to make some HiFi mockup alternatives. Get that extra boost of inspiration from a pretty end goal.
+- [ ] **Timestamp** the ring moment and show time as distance to that instant.
+- [ ] **Schedule** the ring so it can work in the background.
 - [ ] Don't ring when you drag it to zero yourself
 - [ ] **Forshadow**. Show urgency by changing color on a scale from set time (not total time) to 0
 
