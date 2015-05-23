@@ -16,11 +16,10 @@ import UIKit
 
 class AudioController : NSObject {
 
-    // MARK: - Instance variables and constants
+    static let soundPath = "Sounds/"
+    static let defaultSound = "chipper"
     var timerAudio: AVAudioPlayer!
     var flashbulb: Flashbulb!
-    let soundPath = "Sounds/"
-    let defaultSound = "chipper"
     let maxVolume:Float = 240 // each channel of audio scales from -120 to 0, the loudest
     weak var delegate : AVAudioPlayerDelegate?
     
@@ -82,20 +81,36 @@ class AudioController : NSObject {
         flashbulb.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(alpha)
     }
 
-    // MARK: - Private Methods
-    private func getRandomSoundPath() -> String {
-        let path = NSBundle.mainBundle().bundlePath + "/" + soundPath
+    
+    // MARK: Static Methods
+    static func getRandomSoundName() -> String {
+        var name = defaultSound
+        
+        let path = NSBundle.mainBundle().bundlePath + "/" + AudioController.soundPath
         var error: NSError? = nil
         let fileManager = NSFileManager.defaultManager()
         let contents = fileManager.contentsOfDirectoryAtPath(path, error: &error)
-        if contents == nil {
+
+        if let results = contents {
+            let randomIndex = Int(arc4random_uniform(UInt32(results.count)))
+            if let filename = results[randomIndex] as? String {
+                name = filename
+            } else {
+                println("couldn't cast results at random index to string")
+            }
+        } else {
             println("no files found: \(error)")
-            return defaultSound
         }
-        let filenames = contents as [String]
-        let randomIndex = Int(arc4random_uniform(UInt32(filenames.count)))
-        let randomSound = filenames[randomIndex].stringByDeletingPathExtension
-        return soundPath + randomSound
+        
+        return name
+    }
+    
+    
+    // MARK: - Private Methods
+    private func getRandomSoundPath() -> String {
+        var filename = AudioController.getRandomSoundName()
+        let randomSound = filename.stringByDeletingPathExtension
+        return AudioController.soundPath + randomSound
     }
     
     deinit {

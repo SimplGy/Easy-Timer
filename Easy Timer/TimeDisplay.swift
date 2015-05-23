@@ -57,6 +57,7 @@ class TimeDisplay: UIView {
     func start() {
         ticking = true
         // TODO: on start, flash/animate/bump the numbers to show something happened
+        Notifier.set(NSDate(timeIntervalSinceNow: 3)) // in N seconds
     }
     func stop() {
         ticking = false
